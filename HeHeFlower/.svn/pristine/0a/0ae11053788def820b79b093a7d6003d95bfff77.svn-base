@@ -1,0 +1,48 @@
+//
+//  MyCardsViewController.m
+//  Flower
+//
+//  Created by Apple on 2018/3/19.
+//  Copyright © 2018年 Apple. All rights reserved.
+//
+
+#import "MyCardsViewController.h"
+
+@interface MyCardsViewController ()<NavBarDelegate>
+@property(nonatomic, strong)NavBar *navBar;
+@end
+
+@implementation MyCardsViewController
+
+- (void)viewWillAppear:(BOOL)animated{
+    
+    [super viewWillAppear:animated];
+    self.tabBarController.tabBar.hidden = YES;
+}
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    [self initView];
+}
+
+- (void)initView{
+    
+    _navBar = [[NavBar alloc]initWithFrame:NAVBAR_FRAME WithTitle:@"我的礼券" WithleftName:@"  " WithRightName:nil];
+    _navBar.delegate = self;
+    
+    [self.view addSubview:_navBar];
+    self.navigationController.navigationBar.alpha=1;
+    
+}
+
+- (void)backItemClick{
+    [self.navigationController popViewControllerAnimated:NO];
+}
+
+- (void)nextItemClick{
+    
+    
+}
+
+
+@end

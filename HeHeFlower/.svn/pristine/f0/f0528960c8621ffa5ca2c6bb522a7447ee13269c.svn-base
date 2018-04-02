@@ -1,0 +1,63 @@
+//
+//  BaseViewController.m
+//  JulijrP2P
+//
+//  Created by 韩 立 on 2016/12/25.
+//  Copyright © 2016年 聚力金服网络科技有限公司. All rights reserved.
+//
+
+#import "BaseViewController.h"
+#import "NetWorkClient.h"
+@interface BaseViewController ()<HTTPClientDelegate>
+
+@end
+
+@implementation BaseViewController
+
+- (void)viewWillAppear:(BOOL)animated
+{
+	[super viewWillAppear :animated];
+	self.navigationController.navigationBarHidden = YES;
+}
+
+
+
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+
+	//取消手势返回
+	if ([self.navigationController respondsToSelector:@selector(interactivePopGestureRecognizer)]) {
+		self.navigationController.interactivePopGestureRecognizer.enabled = NO;
+	}
+    //背景颜色
+    self.view.backgroundColor = BGC;
+	//设置状态栏字体颜色
+	if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 7.0) { // 判断是否是IOS7
+		[[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault];
+		}
+	//设置导航控制器的backItem的title
+    [[UINavigationBar appearance] setTintColor:baseLightBlackColor];
+    UIBarButtonItem *backItem=[[UIBarButtonItem alloc]init];
+    backItem.title=@"返回";
+    backItem.tintColor=baseLightBlackColor;
+    self.navigationItem.backBarButtonItem = backItem;
+    
+}
+
+// 返回成功
+-(void) httpResponseSuccess:(NetWorkClient *)client dataTask:(NSURLSessionDataTask *)task didSuccessWithObject:(id)obj{
+}
+
+// 返回失败
+-(void) httpResponseFailure:(NetWorkClient *)client dataTask:(NSURLSessionDataTask *)task didFailWithError:(NSError *)error
+{
+    
+}
+// 无可用的网络
+-(void) networkError{
+
+}
+
+
+@end

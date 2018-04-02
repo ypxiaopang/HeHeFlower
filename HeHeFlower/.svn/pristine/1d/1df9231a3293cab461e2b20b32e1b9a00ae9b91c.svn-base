@@ -1,0 +1,69 @@
+//
+//  BluetoothTableViewCell.m
+//  Flower
+//
+//  Created by 张营营 on 2018/3/27.
+//  Copyright © 2018年 Apple. All rights reserved.
+//
+
+#import "BluetoothTableViewCell.h"
+
+@interface BluetoothTableViewCell()
+
+@property(nonatomic, retain)UIButton *btnOfBluetooth;
+
+@end
+
+@implementation BluetoothTableViewCell
+
+- (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
+{
+    self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
+    if (self) {
+        [self initView];
+    }
+    return self;
+}
+
+- (void)initView{
+    
+    _btnOfBluetooth = [UIButton buttonWithType:UIButtonTypeCustom];
+    [self.contentView addSubview:_btnOfBluetooth];
+    self.contentView.backgroundColor = [ColorTools colorWithHexString:@"54b787"];
+    _btnOfBluetooth.layer.masksToBounds = YES;
+    _btnOfBluetooth.layer.cornerRadius = 10.0f;
+    _btnOfBluetooth.layer.borderWidth = 0.5f;
+    _btnOfBluetooth.layer.borderColor = [UIColor whiteColor].CGColor;
+    _btnOfBluetooth.backgroundColor = [UIColor whiteColor];
+    [_btnOfBluetooth setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [_btnOfBluetooth addTarget:self action:@selector(chooseBluetooth) forControlEvents:UIControlEventTouchUpInside];
+    
+}
+
+- (void)layoutSubviews{
+    [super layoutSubviews];
+    _btnOfBluetooth.frame = CGRectMake(MSWIDTH/3, 10, MSWIDTH/3, self.contentView.bounds.size.height - 20);
+
+}
+
+- (void)setTitileOfBtn:(NSString *)titileOfBtn{
+    
+    [_btnOfBluetooth setTitle:titileOfBtn forState:UIControlStateNormal];
+    
+}
+
+- (void)chooseBluetooth{
+    
+    if (self.delegate && [self.delegate respondsToSelector:@selector(clickBtnEvent)]) {
+        [self.delegate clickBtnEvent];
+    }
+    
+}
+
+- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
+    [super setSelected:selected animated:animated];
+    
+    
+}
+
+@end

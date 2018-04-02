@@ -1,0 +1,247 @@
+//
+//  MyAccountViewController.m
+//  JulijrP2P
+//
+//  Created by 韩 立 on 2017/1/16.
+//  Copyright © 2017年 聚力金服网络科技有限公司. All rights reserved.
+
+
+#import "MyAccountViewController.h"
+#import "LoginViewController.h"
+#import "MyNavigationController.h"
+#import "AppDelegate.h"
+#import "MyAccountCell.h"
+#import "SetViewController.h"
+#import "associateViewController.h"
+#import "HistoryPlantsViewController.h"
+#import "MyCardsViewController.h"
+#import "CommonQuestionViewController.h"
+#import "ExchangeRecordViewController.h"
+@interface MyAccountViewController ()<UITableViewDelegate,UITableViewDataSource>
+
+@property(nonatomic, strong)UIImageView *viewOfAccount;//背景图
+
+@property(nonatomic,strong)UIImageView *headImg;//头像
+@property(nonatomic, strong)UILabel *name;//名字
+@property (strong, nonatomic)  UITableView *tableView;
+@property(nonatomic, strong)UIImageView *img1;//花币
+@property(nonatomic, strong)UIImageView *img2;//花币兑换
+@property(nonatomic, strong)UIImageView *img3;//花卉追溯
+@property(nonatomic, strong)UILabel *label1;//花币
+@property(nonatomic, strong)UILabel *label2;//花币兑换
+@property(nonatomic, strong)UILabel *label3;//花卉追溯
+@end
+
+@implementation MyAccountViewController
+
+#pragma mark - 视图控制器生命周期
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+   // [self requestData];
+    [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
+    self.navigationController.navigationBarHidden = YES;
+    self.tabBarController.tabBar.hidden = NO;
+   
+}
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+ 
+    [self initView];
+    
+  
+    
+}
+
+-(void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleDefault;
+}
+
+#pragma mark - 视图初始化
+-(void)initView{
+    _viewOfAccount = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, MSWIDTH, MSWIDTH /2)];
+    _viewOfAccount.image= [UIImage imageNamed:@"背景"];
+    [self.view addSubview:_viewOfAccount];
+    
+    //花币
+    _img1 = [[UIImageView alloc]initWithFrame:CGRectMake(MSWIDTH/3/2-15, MSWIDTH/2 +15, 30, 30)];
+    _img1.image = [UIImage imageNamed:@"花币"];
+    [self.view addSubview:_img1];
+    
+    _label1 = [[UILabel alloc]initWithFrame:CGRectMake(MSWIDTH/3/2-30, MSWIDTH/2 +50,60, 20)];
+    _label1.textAlignment = NSTextAlignmentCenter;
+    _label1.font = [UIFont fontWithName:@"STHeitiSC-Light" size:12];
+    _label1.text = @"45花币";
+    _label1.textColor = [ColorTools colorWithHexString:@"#999999"];
+    [self.view addSubview:_label1];
+    
+  
+    //花币兑换
+    _img2 = [[UIImageView alloc]initWithFrame:CGRectMake(MSWIDTH/3/2-15 +MSWIDTH/3, MSWIDTH/2 +15, 30, 30)];
+    _img2.image = [UIImage imageNamed:@"花币兑换"];
+    [self.view addSubview:_img2];
+    
+    _label2 = [[UILabel alloc]initWithFrame:CGRectMake(MSWIDTH/3/2-30+MSWIDTH/3, MSWIDTH/2 +50,60, 20)];
+    _label2.textAlignment = NSTextAlignmentCenter;
+    _label2.font = [UIFont fontWithName:@"STHeitiSC-Light" size:12];
+    _label2.text = @"花币兑换";
+    _label2.textColor = [ColorTools colorWithHexString:@"#999999"];
+    [self.view addSubview:_label2];
+    
+    //花卉追溯
+    _img3 = [[UIImageView alloc]initWithFrame:CGRectMake(MSWIDTH/3/2-15 +MSWIDTH/3*2, MSWIDTH/2 +15, 30, 30)];
+    _img3.image = [UIImage imageNamed:@"花卉追溯"];
+    [self.view addSubview:_img3];
+    
+    _label3 = [[UILabel alloc]initWithFrame:CGRectMake(MSWIDTH/3/2-30+MSWIDTH/3*2, MSWIDTH/2 +50,60, 20)];
+    _label3.textAlignment = NSTextAlignmentCenter;
+    _label3.font = [UIFont fontWithName:@"STHeitiSC-Light" size:12];
+    _label3.text = @"花卉追溯";
+    _label3.textColor =  [ColorTools colorWithHexString:@"#999999"];
+    [self.view addSubview:_label3];
+    
+    //竖线
+    UIView *line1 = [[UIView alloc]initWithFrame:CGRectMake(MSWIDTH/3, MSWIDTH/2+10, 1, 60)];
+    line1.backgroundColor =   [UIColor colorWithRed:0.1 green:0.1 blue:0.1 alpha:0.1];
+    [self.view addSubview:line1];
+    
+    UIView *line2 = [[UIView alloc]initWithFrame:CGRectMake(MSWIDTH/3*2, MSWIDTH/2+10, 1, 60)];
+    line2.backgroundColor =   [UIColor colorWithRed:0.1 green:0.1 blue:0.1 alpha:0.1];
+
+    [self.view addSubview:line2];
+    
+    //横线
+    UIView *line3 = [[UIView alloc]initWithFrame:CGRectMake(0, MSWIDTH/2+80, MSWIDTH, 20)];
+    line3.backgroundColor =  [ColorTools colorWithHexString:@"#f4f4f4"];
+    [self.view addSubview:line3];
+    
+    
+
+    //设置
+    UIButton *set = [UIButton buttonWithType:UIButtonTypeCustom];
+    [set setBackgroundImage: [UIImage imageNamed:@"设置"] forState:UIControlStateNormal];
+    set.frame = CGRectMake(MSWIDTH - 40, 30, 25, 25);
+    [set addTarget:self action:@selector(pushset) forControlEvents:UIControlEventTouchUpInside];
+    [_viewOfAccount addSubview:set];
+    _viewOfAccount.userInteractionEnabled = YES;
+    
+    _name = [[UILabel alloc]initWithFrame:CGRectMake(MSWIDTH/2 - 40, 30, 80, 25)];
+    _name.textAlignment = NSTextAlignmentCenter;
+    _name.font = [UIFont systemFontOfSize:15];
+    _name.textColor = [UIColor whiteColor];
+    _name.text = @"苏坡boy";
+    [_viewOfAccount addSubview:_name];
+    
+    //签到
+    
+    UIButton *sign = [UIButton buttonWithType:UIButtonTypeCustom];
+    [sign setBackgroundImage: [UIImage imageNamed:@"签到"] forState:UIControlStateNormal];
+    sign.frame = CGRectMake( 15, 30, 25, 25);
+    [_viewOfAccount addSubview:sign];
+    
+    
+    _headImg = [[UIImageView alloc]initWithFrame:CGRectMake(MSWIDTH/2 - 40, MSWIDTH/2/2 - 40 +20, 80, 80)];
+    _headImg.layer.masksToBounds = YES;
+    _headImg.layer.cornerRadius = 40.0f;
+    _headImg.image = [UIImage imageNamed:@"touxiang"];
+    [_viewOfAccount addSubview:_headImg];
+    
+    
+    
+    
+    
+    
+    _tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, MSWIDTH *1/2 + 100, MSWIDTH, MSHIGHT - MSWIDTH *1/2- 100) style:UITableViewStylePlain];
+    [self.view addSubview:_tableView];
+    _tableView.backgroundColor = [UIColor whiteColor];
+    _tableView.delegate = self;
+    _tableView.dataSource = self;
+    _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    _tableView.scrollEnabled= NO;
+
+    [self.tableView registerClass:[MyAccountCell class] forCellReuseIdentifier:@"pool"];
+
+}
+
+- (void)pushset{
+    
+    SetViewController *set = [[SetViewController alloc]init];
+    
+    [self.navigationController pushViewController:set animated:NO];
+    
+}
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
+    return 1;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    
+    return 5;
+    
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    return 60;
+    
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    MyAccountCell *cell = [tableView dequeueReusableCellWithIdentifier:@"pool"];
+    NSArray *arr = @[@"我的礼券",@"关联账号",@"历史植物",@"常见问题",@"兑换记录"];
+    NSArray *arrOfImg = @[[UIImage imageNamed:@"福利券"],[UIImage imageNamed:@"关联"],[UIImage imageNamed:@"历史记录"],[UIImage imageNamed:@"问题-互动"],[UIImage imageNamed:@"兑换"]];
+
+    cell.img.image = arrOfImg[indexPath.row];
+    cell.label.text = arr[indexPath.row];
+    return cell;
+    
+    
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    if (indexPath.row == 0) {
+        MyCardsViewController *myCards  =[[MyCardsViewController alloc]init];
+        [self.navigationController pushViewController:myCards animated:NO];
+    } else  if (indexPath.row == 1) {
+        associateViewController *associate = [[associateViewController alloc]init];
+        [self.navigationController pushViewController:associate animated:NO];
+    }else if (indexPath.row == 2){
+        
+        HistoryPlantsViewController *history = [[HistoryPlantsViewController alloc]init];
+        [self.navigationController pushViewController:history animated:NO];
+        
+    }else if (indexPath.row == 3){
+        
+        CommonQuestionViewController *common = [[CommonQuestionViewController alloc]init];
+        [self.navigationController pushViewController:common animated:NO];
+        
+    }else{
+        
+        ExchangeRecordViewController *exchange = [[ExchangeRecordViewController alloc]init];
+        
+        [self.navigationController pushViewController:exchange animated:NO];
+        
+        
+    }
+}
+
+
+- (void)logout{
+    
+    [[AppDefaultUtil sharedInstance]setLoginState:NO];
+    LoginViewController *loginView = [[LoginViewController alloc] init];
+    MyNavigationController *loginNVC = [[MyNavigationController alloc] initWithRootViewController:loginView];
+    loginView.backType = ChangeRootView;
+    [self presentViewController:loginNVC animated:YES completion:nil
+     ];
+    
+}
+
+
+@end

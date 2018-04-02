@@ -1,0 +1,160 @@
+//
+//  TabBarController.m
+//  JulijrP2P
+//
+//  Created by 韩 立 on 2016/12/25.
+//  Copyright © 2016年 聚力金服网络科技有限公司. All rights reserved.
+//
+
+#import "TabBarController.h"
+#import "MyNavigationController.h"
+#import "LoginViewController.h"
+#import "HomeViewController.h"
+#import "BaseViewController.h"
+#import "MyAccountViewController.h"
+#import "StoreViewController.h"
+
+@class InvestViewController;
+@class LoanViewController;
+//@class MyAccountViewController;
+
+@interface TabBarController ()
+
+@end
+
+@implementation TabBarController
+
+
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleDefault;
+    [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationNone];
+}
+
+
+//- (void)viewWillLayoutSubviews{
+//    CGRect tabFrame = self.tabBar.frame;
+//    tabFrame.size.height = 49;
+//    tabFrame.origin.y = self.view.frame.size.height - 49;
+//    self.tabBar.frame = tabFrame;
+//
+//}
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    
+    // Do any additional setup after loading the view.
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeSelectIndex:) name:CHANGETABBAR object:nil];
+
+	//[self.tabBar setDelegate:self];
+    
+    [[UITabBarItem appearance] setTitleTextAttributes:                                                  [NSDictionary dictionaryWithObjectsAndKeys:[ColorTools colorWithHexString:@"#41b086"],NSForegroundColorAttributeName, nil]forState:UIControlStateSelected];
+    
+    
+    
+    
+   
+
+    
+    
+    
+    
+    
+    
+    
+    
+    UIImage *selectedImg0 = [[UIImage imageNamed:@"我的设备 点击"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    UIImage *selectedImg1 = [[UIImage imageNamed:@"商城 点击"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    UIImage *selectedImg2 = [[UIImage imageNamed:@"个人中心 点击"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+//    UIImage *selectedImg3 = [[UIImage imageNamed:@"tab_mine_select"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    
+    
+    
+    UITabBarItem *tabbarItem0 = [[UITabBarItem alloc] initWithTitle:@"我的设备" image:[UIImage imageNamed:@"我的设备 未点击"] selectedImage:selectedImg0];
+    UITabBarItem *tabbarItem1 = [[UITabBarItem alloc] initWithTitle:@"商城" image:[UIImage imageNamed:@"商城 未点击"] selectedImage:selectedImg1];
+    UITabBarItem *tabbarItem2 = [[UITabBarItem alloc] initWithTitle:@"个人中心" image:[UIImage imageNamed:@"个人中心 未点击"] selectedImage:selectedImg2];
+//    UITabBarItem *tabbarItem3 = [[UITabBarItem alloc] initWithTitle:@"我的" image:[UIImage imageNamed:@"tab_mine"] selectedImage:selectedImg3];
+    
+//设备为iphoneX
+//    if (MSHIGHT == 812) {
+//         [[UITabBarItem appearance] setTitlePositionAdjustment:UIOffsetMake(0, 30)];
+//         tabbarItem0.imageInsets = UIEdgeInsetsMake(12, 0, -12, 0);
+//         tabbarItem1.imageInsets = UIEdgeInsetsMake(12, 0, -12, 0);
+//         tabbarItem2.imageInsets = UIEdgeInsetsMake(12, 0, -12, 0);
+//         tabbarItem3.imageInsets = UIEdgeInsetsMake(12, 0, -12, 0);
+//    }
+    
+    
+    
+    
+    HomeViewController *homeView = [[HomeViewController alloc]init];
+    MyNavigationController *homeNav = [[MyNavigationController alloc]initWithRootViewController:homeView];
+    homeNav.tabBarItem = tabbarItem0;
+    
+    StoreViewController *storeView = [[StoreViewController alloc]init];
+       MyNavigationController *productsNav = [[MyNavigationController alloc]initWithRootViewController:storeView];
+    productsNav.tabBarItem = tabbarItem1;
+
+    
+//    MyNavigationController *productsView = (MyNavigationController *)[[UIStoryboard storyboardWithName:@"Products" bundle:nil] instantiateInitialViewController];
+//    productsView.tabBarItem = tabbarItem1;
+    
+//    MyNavigationController *findView = (MyNavigationController *)[[UIStoryboard storyboardWithName:@"Find" bundle:nil] instantiateInitialViewController];
+//    findView.tabBarItem = tabbarItem2;
+    
+    MyAccountViewController *capitalView = [[MyAccountViewController alloc]init];
+    MyNavigationController *capNav = [[MyNavigationController alloc]initWithRootViewController:capitalView];
+    capNav.tabBarItem = tabbarItem2;
+
+    
+ 
+    
+    
+    self.viewControllers = @[homeNav,productsNav,capNav];
+    
+    if (IS_VISITOR)//进入程序后进入理财模块
+    {
+        self.delegate = self;
+        [self setSelectedIndex:0];
+        
+    }else{
+        [self setSelectedIndex:2];
+    }
+}
+
+#pragma mark - UITabBarControllerDelegate
+- (BOOL)tabBarController:(UITabBarController *)tabBarController shouldSelectViewController:(UIViewController *)viewController
+{
+    //判断的是当前点击的tabBarItem的标题
+    if ([viewController.tabBarItem.title isEqualToString:@"我的"] && ![[AppDefaultUtil sharedInstance]isLoginState]) {
+        
+        //如果未登录，则跳转登录界面
+        LoginViewController *loginView = [[LoginViewController alloc] init];
+        MyNavigationController *loginNVC = [[MyNavigationController alloc] initWithRootViewController:loginView];
+        loginView.backType = MinePage;
+        [((UINavigationController *)tabBarController.selectedViewController) presentViewController:loginNVC animated:YES completion:nil];
+        
+        return NO;
+    }
+    else{
+        return YES;
+    }
+}
+
+#pragma mark - 跳转指定tabbar
+- (void)changeSelectIndex:(NSNotification *)note
+{
+    NSInteger index = [[note object]integerValue];
+    [self setSelectedIndex:index];
+}
+
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
+
+
+
+@end

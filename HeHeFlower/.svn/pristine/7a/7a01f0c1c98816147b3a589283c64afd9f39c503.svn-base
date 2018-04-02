@@ -1,0 +1,49 @@
+//
+//  associateViewController.m
+//  Flower
+//
+//  Created by Apple on 2018/3/19.
+//  Copyright © 2018年 Apple. All rights reserved.
+//
+
+#import "associateViewController.h"
+
+@interface associateViewController ()<NavBarDelegate>
+@property(nonatomic, strong)NavBar *navBar;
+@end
+
+@implementation associateViewController
+
+- (void)viewWillAppear:(BOOL)animated{
+    
+    [super viewWillAppear:animated];
+    self.tabBarController.tabBar.hidden = YES;
+}
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    [self initView];
+}
+
+- (void)initView{
+    
+    _navBar = [[NavBar alloc]initWithFrame:NAVBAR_FRAME WithTitle:@"关联账号" WithleftName:@"  " WithRightName:nil];
+    _navBar.delegate = self;
+    
+    [self.view addSubview:_navBar];
+    self.navigationController.navigationBar.alpha=1;
+
+}
+
+- (void)backItemClick{
+    [self.navigationController popViewControllerAnimated:NO];
+}
+
+- (void)nextItemClick{
+    
+    
+}
+
+
+
+@end

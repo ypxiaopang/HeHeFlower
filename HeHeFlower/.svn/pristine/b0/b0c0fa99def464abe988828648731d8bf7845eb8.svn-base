@@ -1,0 +1,47 @@
+//
+//  PrefixHeader.pch
+//  JulijrP2P
+//
+//  Created by 韩 立 on 2017/1/16.
+//  Copyright © 2017年 聚力金服网络科技有限公司. All rights reserved.
+//
+
+#ifndef PrefixHeader_pch
+#define PrefixHeader_pch
+
+// Include any system framework and library headers here that should be included in all compilation units.
+// You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
+#import "BaseViewController.h"  //基视图控制器
+#import "TabBarController.h"    //标签栏视图控制器
+#import "MyTableView.h"         //自定义tableview 
+#import "Macros.h"              //宏定义类
+#import "BaseColor.h"           //颜色类
+#import "NetWorkConfig.h"       //网络配置
+#import "NetWorkClient.h"       //网络封装强求类
+#import "MJExtension.h"         //模型转换类
+#import "MJRefresh.h"           //上下拉刷新类
+#import "HHAlertView.h"         //提示框
+#import "Masonry.h"             //AutoLayout
+#import "SVProgressHUD.h"		//svprogress提示框
+#import "NSString+Shove.h"      //字符串判断
+#import "AppDefaultUtil.h"      //APP单例
+#import "NavBar.h"				//自定义导航栏
+#import "NavBarWhite.h"
+#import "IsiPhoneDevice.h"      //iphone型号
+#import "SKSTableView.h"
+#import "SKSTableViewCell.h"
+#import "TimeChangeTools.h"
+#import "ReLogin.h"
+#import "DejalActivityView.h"
+#import "ColorTools.h"
+#import "Enumerates.h"           //枚举
+#import "MyTools.h"              //工具类
+#import "ActionConstants.h"      //加密Action常量类
+#import "NSString+Sign.h"        //ID加密解密类
+#import "TimeModel.h"
+
+//全屏手势右滑返回
+#import "UINavigationController+FDFullscreenPopGesture.h"
+
+#endif /* PrefixHeader_pch */
+

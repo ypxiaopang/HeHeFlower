@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>邮政银行</key>
+	<string>95580</string>
+	<key>农业银行</key>
+	<string>95599</string>
+	<key>浦发银行</key>
+	<string>95528</string>
+	<key>中信银行</key>
+	<string>95558</string>
+	<key>交通银行</key>
+	<string>95559</string>
+	<key>华夏银行</key>
+	<string>95577</string>
+	<key>中国银行</key>
+	<string>95566</string>
+	<key>建设银行</key>
+	<string>95533</string>
+	<key>平安银行</key>
+	<string>40066-99999</string>
+	<key>工商银行</key>
+	<string>95588</string>
+	<key>民生银行</key>
+	<string>95568</string>
+	<key>兴业银行</key>
+	<string>95561</string>
+	<key>大连银行</key>
+	<string>400-664-0099</string>
+	<key>光大银行</key>
+	<string>95595</string>
+	<key>上海银行</key>
+	<string>95594</string>
+	<key>渤海银行</key>
+	<string>400-888-8811</string>
+	<key>广发银行</key>
+	<string>400-830-8003</string>
+	<key>招商银行</key>
+	<string>95555</string>
+</dict>
+</plist>

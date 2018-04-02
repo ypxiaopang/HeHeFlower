@@ -1,0 +1,51 @@
+//
+//  HomeCell.m
+//  Flower
+//
+//  Created by Apple on 2018/3/1.
+//  Copyright © 2018年 Apple. All rights reserved.
+//
+
+#import "HomeCell.h"
+
+@implementation HomeCell
+- (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
+{
+    self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
+    if (self) {
+        // Initialization code
+        [self initView];
+    }
+    return self;
+}
+- (void)initView{
+    
+    _imgOfWare = [[UIImageView alloc]initWithFrame:CGRectMake(10, 10, 50, 50)];
+    _imgOfWare.image = [UIImage imageNamed:@"设备"];
+    [self.contentView addSubview:_imgOfWare];
+    
+    
+    
+    _label = [[UILabel alloc]initWithFrame:CGRectMake(60, 13, 90, 20)];
+    _label.font =[UIFont fontWithName:@"STHeitiSC-Light" size:15];
+    _label.text = @"ST-BLE01";
+    [self.contentView addSubview:_label];
+    
+    _day = [[UILabel alloc]initWithFrame:CGRectMake(60, 37, 70, 20)];
+    _day.font =[UIFont fontWithName:@"STHeitiSC-Light" size:14];
+    _day.textColor = [UIColor lightGrayColor];
+    _day.text = @"已监测0天";
+    [self.contentView addSubview:_day];
+    
+    _flower = [[UIImageView alloc]initWithFrame:CGRectMake(MSWIDTH - 65, 10, 44, 50)];
+    _flower.image = [UIImage imageNamed:@"蝴蝶兰"];
+    [self.contentView addSubview:_flower];
+    
+    UIView *view = [[UIView alloc]initWithFrame:CGRectMake(40, 69, MSWIDTH - 70, 0.5)];
+    view.backgroundColor = [UIColor colorWithRed:0.1 green:0.1 blue:0.1 alpha:0.1];
+    [self.contentView addSubview:view];
+
+    
+}
+
+@end

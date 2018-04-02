@@ -1,0 +1,37 @@
+# Uncomment the next line to define a global platform for your project
+# platform :ios, '9.0'
+
+target 'Flower' do
+  # Uncomment the next line if you're using Swift or would like to use dynamic frameworks
+  # use_frameworks!
+
+  # Pods for Flower
+pod 'AFNetworking'
+pod 'MJRefresh'#上下拉刷新
+pod 'NOCategories'   
+pod 'MJExtension'   #模型装换
+pod 'SDWebImage', '~>3.8'  #图片加载库
+pod 'HHAlertView', '~> 0.1.0'  #提示框
+pod 'Masonry'             #Autolayout第三方库
+pod 'IQKeyboardManager'       #键盘事件第三方库
+pod 'FDFullscreenPopGesture', '1.1'   #全屏返回手势
+pod 'SVProgressHUD', '2.0.3'   #加载提示
+pod 'SKSTableView', '~> 0.0.2' #二级列表
+# pod 'SDCycleScrollView','~> 1.64' #轮播图
+pod 'HMSegmentedControl'      #滑动切换视图
+pod 'CircleStatus'            #环形分布图
+pod 'ECSlidingViewController', '~> 2.0.3'  #侧滑菜单
+pod 'RESideMenu', '~> 4.0.7' #侧滑菜单
+pod 'Charts', '~> 2.2.5'
+
+  target 'FlowerTests' do
+    inherit! :search_paths
+    # Pods for testing
+  end
+
+  target 'FlowerUITests' do
+    inherit! :search_paths
+    # Pods for testing
+  end
+
+end
